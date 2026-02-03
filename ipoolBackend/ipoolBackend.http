@@ -1,9 +1,5 @@
 @ipoolBackend_HostAddress = http://localhost:5000
-
-### WeatherForecast (protected)
-GET {{ipoolBackend_HostAddress}}/weatherforecast/
-Authorization: Bearer {{token}}
-Accept: application/json
+@token = REPLACE_WITH_TOKEN
 
 ### Register
 POST {{ipoolBackend_HostAddress}}/api/auth/register

@@ -12,7 +12,12 @@ public class AppDbContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<User>()
-            .HasIndex(u => u.Email)
+            .Property(u => u.NormalizedEmail)
+            .HasMaxLength(150)
+            .IsRequired();
+
+        modelBuilder.Entity<User>()
+            .HasIndex(u => u.NormalizedEmail)
             .IsUnique();
 
         base.OnModelCreating(modelBuilder);

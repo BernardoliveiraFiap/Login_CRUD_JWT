@@ -15,7 +15,16 @@ public class UserRepository : IUserRepository
 
     public Task<User?> GetByEmailAsync(string email, CancellationToken cancellationToken = default)
     {
-        return _dbContext.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Email == email, cancellationToken);
+        var normalizedEmail = email.Trim().ToLowerInvariant();
+        return _dbContext.Users.AsNoTracking()
+            .FirstOrDefaultAsync(u => u.NormalizedEmail == normalizedEmail, cancellationToken);
+    }
+
+    public Task<User?> GetByNormalizedEmailAsync(string normalizedEmail, CancellationToken cancellationToken = default)
+    {
+        var normalized = normalizedEmail.Trim().ToLowerInvariant();
+        return _dbContext.Users.AsNoTracking()
+            .FirstOrDefaultAsync(u => u.NormalizedEmail == normalized, cancellationToken);
     }
 
     public Task<User?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)

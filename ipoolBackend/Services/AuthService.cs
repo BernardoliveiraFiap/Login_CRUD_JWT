@@ -19,8 +19,8 @@ public class AuthService : IAuthService
 
     public async Task<AuthResponse> RegisterAsync(RegisterRequest request, CancellationToken cancellationToken = default)
     {
-        var email = request.Email.Trim().ToLowerInvariant();
-        var existing = await _userRepository.GetByEmailAsync(email, cancellationToken);
+        var normalizedEmail = request.Email.Trim().ToLowerInvariant();
+        var existing = await _userRepository.GetByNormalizedEmailAsync(normalizedEmail, cancellationToken);
         if (existing is not null)
         {
             throw new InvalidOperationException("E-mail já cadastrado.");
@@ -29,7 +29,8 @@ public class AuthService : IAuthService
         var user = new User
         {
             Name = request.Name.Trim(),
-            Email = email,
+            Email = normalizedEmail,
+            NormalizedEmail = normalizedEmail,
             PasswordHash = _passwordHasher.Hash(request.Password)
         };
 
@@ -38,13 +39,13 @@ public class AuthService : IAuthService
 
         var (token, expiresAt) = _tokenService.GenerateToken(user);
         var userResponse = new UserResponse(user.Id, user.Name, user.Email, user.CreatedAt);
-        return new AuthResponse(token, expiresAt, userResponse);
+        return new AuthResponse(token, expiresAt, "Bearer", userResponse);
     }
 
     public async Task<AuthResponse> LoginAsync(LoginRequest request, CancellationToken cancellationToken = default)
     {
-        var email = request.Email.Trim().ToLowerInvariant();
-        var user = await _userRepository.GetByEmailAsync(email, cancellationToken);
+        var normalizedEmail = request.Email.Trim().ToLowerInvariant();
+        var user = await _userRepository.GetByNormalizedEmailAsync(normalizedEmail, cancellationToken);
         if (user is null || !_passwordHasher.Verify(request.Password, user.PasswordHash))
         {
             throw new UnauthorizedAccessException("Credenciais inválidas.");
@@ -52,6 +53,6 @@ public class AuthService : IAuthService
 
         var (token, expiresAt) = _tokenService.GenerateToken(user);
         var userResponse = new UserResponse(user.Id, user.Name, user.Email, user.CreatedAt);
-        return new AuthResponse(token, expiresAt, userResponse);
+        return new AuthResponse(token, expiresAt, "Bearer", userResponse);
     }
 }

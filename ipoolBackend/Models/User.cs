@@ -16,6 +16,10 @@ public class User
     public string Email { get; set; } = string.Empty;
 
     [Required]
+    [MaxLength(150)]
+    public string NormalizedEmail { get; set; } = string.Empty;
+
+    [Required]
     public string PasswordHash { get; set; } = string.Empty;
 
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
