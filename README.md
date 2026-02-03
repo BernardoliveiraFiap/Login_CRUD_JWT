@@ -14,3 +14,17 @@
 
 
 
+#ipoolLogin frontend CADASTRO
+
+<img width="2275" height="1336" alt="image" src="https://github.com/user-attachments/assets/340f5b21-f99f-4c16-8696-e319406140fc" />
+
+
+#Usuário logado
+<img width="2232" height="1236" alt="image" src="https://github.com/user-attachments/assets/fe1e30e8-378c-45e7-9424-34f34195c0de" />
+
+#deletando alguém
+<img width="2329" height="1210" alt="image" src="https://github.com/user-attachments/assets/a31691c6-b3dd-447d-a4fb-eb1625a37d99" />
+
+
+
+
