@@ -1,6 +1,17 @@
 @ipoolBackend_HostAddress = http://localhost:5000
 @token = REPLACE_WITH_TOKEN
 
+### Scalar UI: http://localhost:5000/scalar/v1
+
+### Health
+GET {{ipoolBackend_HostAddress}}/api/health
+
+### Health DB
+GET {{ipoolBackend_HostAddress}}/api/health/db
+
+### Info
+GET {{ipoolBackend_HostAddress}}/api/info
+
 ### Register
 POST {{ipoolBackend_HostAddress}}/api/auth/register
 Content-Type: application/json

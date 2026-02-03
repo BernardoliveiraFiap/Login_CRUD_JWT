@@ -10,6 +10,7 @@ namespace ipoolBackend.Controllers;
 [ApiController]
 [Route("api/[controller]")]
 [Authorize]
+[Produces("application/json")]
 public class UsersController : ControllerBase
 {
     private readonly IUserService _userService;
@@ -22,6 +23,7 @@ public class UsersController : ControllerBase
     [HttpGet("me")]
     [ProducesResponseType(typeof(UserResponse), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<UserResponse>> Me(CancellationToken cancellationToken)
     {
@@ -29,11 +31,16 @@ public class UsersController : ControllerBase
 
         if (!Guid.TryParse(userIdValue, out var userId))
         {
-            return Unauthorized(new ErrorResponse("Token inválido."));
+            return Unauthorized(new ErrorResponse("Token inválido.", "invalid_token"));
         }
 
         var user = await _userService.GetByIdAsync(userId, cancellationToken);
         if (user is null) return NotFound();
+
+        if (!user.IsActive)
+        {
+            return Forbid();
+        }
 
         return Ok(user);
     }

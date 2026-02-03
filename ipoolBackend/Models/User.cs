@@ -20,7 +20,10 @@ public class User
     public string NormalizedEmail { get; set; } = string.Empty;
 
     [Required]
+    [MaxLength(500)]
     public string PasswordHash { get; set; } = string.Empty;
+
+    public bool IsActive { get; set; } = true;
 
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 }

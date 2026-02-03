@@ -11,14 +11,7 @@ public class AppDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<User>()
-            .Property(u => u.NormalizedEmail)
-            .HasMaxLength(150)
-            .IsRequired();
-
-        modelBuilder.Entity<User>()
-            .HasIndex(u => u.NormalizedEmail)
-            .IsUnique();
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
 
         base.OnModelCreating(modelBuilder);
     }

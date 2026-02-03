@@ -7,6 +7,8 @@ namespace ipoolBackend.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
+[Produces("application/json")]
+[Consumes("application/json")]
 public class AuthController : ControllerBase
 {
     private readonly IAuthService _authService;
@@ -28,7 +30,7 @@ public class AuthController : ControllerBase
         }
         catch (InvalidOperationException ex)
         {
-            return BadRequest(new ErrorResponse(ex.Message));
+            return BadRequest(new ErrorResponse(ex.Message, "duplicate_email"));
         }
     }
 
@@ -44,7 +46,7 @@ public class AuthController : ControllerBase
         }
         catch (UnauthorizedAccessException ex)
         {
-            return Unauthorized(new ErrorResponse(ex.Message));
+            return Unauthorized(new ErrorResponse(ex.Message, "invalid_credentials"));
         }
     }
 }

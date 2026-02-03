@@ -17,6 +17,6 @@ public class UserService : IUserService
         var user = await _userRepository.GetByIdAsync(id, cancellationToken);
         if (user is null) return null;
 
-        return new UserResponse(user.Id, user.Name, user.Email, user.CreatedAt);
+        return new UserResponse(user.Id, user.Name, user.Email, user.IsActive, user.CreatedAt);
     }
 }

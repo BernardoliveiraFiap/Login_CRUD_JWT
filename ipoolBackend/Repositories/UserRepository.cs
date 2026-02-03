@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using ipoolBackend.Data;
 using ipoolBackend.Models;
+using ipoolBackend.Helpers;
 
 namespace ipoolBackend.Repositories;
 
@@ -15,14 +16,14 @@ public class UserRepository : IUserRepository
 
     public Task<User?> GetByEmailAsync(string email, CancellationToken cancellationToken = default)
     {
-        var normalizedEmail = email.Trim().ToLowerInvariant();
+        var normalizedEmail = EmailNormalizer.Normalize(email);
         return _dbContext.Users.AsNoTracking()
             .FirstOrDefaultAsync(u => u.NormalizedEmail == normalizedEmail, cancellationToken);
     }
 
     public Task<User?> GetByNormalizedEmailAsync(string normalizedEmail, CancellationToken cancellationToken = default)
     {
-        var normalized = normalizedEmail.Trim().ToLowerInvariant();
+        var normalized = EmailNormalizer.Normalize(normalizedEmail);
         return _dbContext.Users.AsNoTracking()
             .FirstOrDefaultAsync(u => u.NormalizedEmail == normalized, cancellationToken);
     }

@@ -1,0 +1,5 @@
+IF DB_ID('iPoolDb') IS NULL
+BEGIN
+    CREATE DATABASE iPoolDb;
+END
+GO

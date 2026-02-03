@@ -1,3 +1,3 @@
 namespace ipoolBackend.DTOs;
 
-public record ErrorResponse(string Message);
+public record ErrorResponse(string Message, string Code);

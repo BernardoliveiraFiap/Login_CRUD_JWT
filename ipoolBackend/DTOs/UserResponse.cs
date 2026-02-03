@@ -1,3 +1,3 @@
 namespace ipoolBackend.DTOs;
 
-public record UserResponse(Guid Id, string Name, string Email, DateTime CreatedAt);
+public record UserResponse(Guid Id, string Name, string Email, bool IsActive, DateTime CreatedAt);
