@@ -18,6 +18,11 @@ public class UserRepository : IUserRepository
         return _dbContext.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Email == email, cancellationToken);
     }
 
+    public Task<User?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
+    {
+        return _dbContext.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Id == id, cancellationToken);
+    }
+
     public async Task AddAsync(User user, CancellationToken cancellationToken = default)
     {
         await _dbContext.Users.AddAsync(user, cancellationToken);

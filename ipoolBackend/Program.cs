@@ -23,6 +23,7 @@ builder.Services.Configure<JwtOptions>(builder.Configuration.GetSection("Jwt"));
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
 
@@ -46,6 +47,8 @@ builder.Services
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey))
         };
     });
+
+builder.Services.AddAuthorization();
 
 var app = builder.Build();
 

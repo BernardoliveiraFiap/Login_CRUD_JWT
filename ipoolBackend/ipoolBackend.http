@@ -1,6 +1,30 @@
-@ipoolBackend_HostAddress = http://localhost:5127
+@ipoolBackend_HostAddress = http://localhost:5000
 
+### WeatherForecast (protected)
 GET {{ipoolBackend_HostAddress}}/weatherforecast/
+Authorization: Bearer {{token}}
 Accept: application/json
 
-###
+### Register
+POST {{ipoolBackend_HostAddress}}/api/auth/register
+Content-Type: application/json
+
+{
+	"name": "Usuario Teste",
+	"email": "teste@ipool.com",
+	"password": "123456"
+}
+
+### Login
+POST {{ipoolBackend_HostAddress}}/api/auth/login
+Content-Type: application/json
+
+{
+	"email": "teste@ipool.com",
+	"password": "123456"
+}
+
+### Me
+GET {{ipoolBackend_HostAddress}}/api/users/me
+Authorization: Bearer {{token}}
+
