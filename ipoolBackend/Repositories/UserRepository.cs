@@ -33,9 +33,21 @@ public class UserRepository : IUserRepository
         return _dbContext.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Id == id, cancellationToken);
     }
 
+    public Task<List<User>> GetAllAsync(CancellationToken cancellationToken = default)
+    {
+        return _dbContext.Users.AsNoTracking()
+            .OrderBy(u => u.Name)
+            .ToListAsync(cancellationToken);
+    }
+
     public async Task AddAsync(User user, CancellationToken cancellationToken = default)
     {
         await _dbContext.Users.AddAsync(user, cancellationToken);
+    }
+
+    public void Remove(User user)
+    {
+        _dbContext.Users.Remove(user);
     }
 
     public Task SaveChangesAsync(CancellationToken cancellationToken = default)

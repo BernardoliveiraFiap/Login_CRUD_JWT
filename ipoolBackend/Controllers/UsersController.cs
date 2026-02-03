@@ -1,4 +1,3 @@
-using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -20,28 +19,25 @@ public class UsersController : ControllerBase
         _userService = userService;
     }
 
-    [HttpGet("me")]
-    [ProducesResponseType(typeof(UserResponse), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status401Unauthorized)]
-    [ProducesResponseType(StatusCodes.Status403Forbidden)]
-    [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<ActionResult<UserResponse>> Me(CancellationToken cancellationToken)
+    [HttpGet]
+    [ProducesResponseType(typeof(IEnumerable<UserResponse>), StatusCodes.Status200OK)]
+    public async Task<ActionResult<IEnumerable<UserResponse>>> GetAll(CancellationToken cancellationToken)
     {
-        var userIdValue = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        var users = await _userService.GetAllAsync(cancellationToken);
+        return Ok(users);
+    }
 
-        if (!Guid.TryParse(userIdValue, out var userId))
+    [HttpDelete("{id:guid}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> Delete(Guid id, CancellationToken cancellationToken)
+    {
+        var deleted = await _userService.DeleteAsync(id, cancellationToken);
+        if (!deleted)
         {
-            return Unauthorized(new ErrorResponse("Token inválido.", "invalid_token"));
+            return NotFound(new ErrorResponse("Usuário não encontrado.", "user_not_found"));
         }
 
-        var user = await _userService.GetByIdAsync(userId, cancellationToken);
-        if (user is null) return NotFound();
-
-        if (!user.IsActive)
-        {
-            return Forbid();
-        }
-
-        return Ok(user);
+        return NoContent();
     }
 }
