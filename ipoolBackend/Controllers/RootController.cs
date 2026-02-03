@@ -6,6 +6,7 @@ namespace ipoolBackend.Controllers;
 public class RootController : ControllerBase
 {
     [HttpGet("/")]
+    [ProducesResponseType(StatusCodes.Status302Found)]
     public IActionResult Get()
     {
         return Redirect("/scalar/v1");

@@ -17,12 +17,14 @@ public class HealthController : ControllerBase
     }
 
     [HttpGet]
+    [ProducesResponseType(typeof(HealthResponse), StatusCodes.Status200OK)]
     public ActionResult<HealthResponse> Get()
     {
         return Ok(new HealthResponse("ok", true, DateTime.UtcNow));
     }
 
     [HttpGet("db")]
+    [ProducesResponseType(typeof(HealthResponse), StatusCodes.Status200OK)]
     public async Task<ActionResult<HealthResponse>> Database(CancellationToken cancellationToken)
     {
         var canConnect = await _dbContext.Database.CanConnectAsync(cancellationToken);

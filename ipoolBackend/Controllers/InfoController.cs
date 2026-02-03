@@ -19,6 +19,7 @@ public class InfoController : ControllerBase
     }
 
     [HttpGet]
+    [ProducesResponseType(typeof(ApiInfoResponse), StatusCodes.Status200OK)]
     public ActionResult<ApiInfoResponse> Get()
     {
         var version = typeof(Program).Assembly.GetName().Version?.ToString() ?? "1.0.0";

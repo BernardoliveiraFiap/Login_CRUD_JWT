@@ -3,6 +3,9 @@
 
 ### Scalar UI: http://localhost:5000/scalar/v1
 
+### Root (redirects to Scalar)
+GET {{ipoolBackend_HostAddress}}/
+
 ### Health
 GET {{ipoolBackend_HostAddress}}/api/health
 

@@ -14,6 +14,9 @@ Edite a connection string e o JWT em:
 - appsettings.json
 - appsettings.Development.json
 
+Por padrão está configurado para LocalDB: `(localdb)\\MSSQLLocalDB`.
+Se estiver usando SQL Server/Express, ajuste a connection string.
+
 ## Executar
 
 ```bash
