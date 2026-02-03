@@ -38,6 +38,9 @@ E rode o sqlcmd com -S "np:\\.\pipe\LOCALDB#...\tsql\query".
 Entre na pasta ipoolBackend e rode:
 dotnet run
 
+Depois disso, o frontend React abre em:
+http://localhost:5000
+
 6) Abrir a documentação Scalar
 http://localhost:5000/scalar/v1
 

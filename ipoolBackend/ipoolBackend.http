@@ -22,7 +22,8 @@ Content-Type: application/json
 {
 	"name": "Usuario Teste",
 	"email": "teste@ipool.com",
-	"password": "123456"
+	"password": "123456",
+	"isActive": true
 }
 
 ### Login

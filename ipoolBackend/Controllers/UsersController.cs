@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 using ipoolBackend.DTOs;
 using ipoolBackend.Services;
 
@@ -32,6 +33,14 @@ public class UsersController : ControllerBase
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Delete(Guid id, CancellationToken cancellationToken)
     {
+        var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        if (!string.IsNullOrWhiteSpace(currentUserId)
+            && Guid.TryParse(currentUserId, out var parsedId)
+            && parsedId == id)
+        {
+            return BadRequest(new ErrorResponse("Você não pode excluir o próprio usuário.", "self_delete"));
+        }
+
         var deleted = await _userService.DeleteAsync(id, cancellationToken);
         if (!deleted)
         {

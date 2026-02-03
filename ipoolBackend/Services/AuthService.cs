@@ -34,7 +34,7 @@ public class AuthService : IAuthService
             Email = email,
             NormalizedEmail = normalizedEmail,
             PasswordHash = _passwordHasher.Hash(request.Password),
-            IsActive = true
+            IsActive = request.IsActive
         };
 
         await _userRepository.AddAsync(user, cancellationToken);

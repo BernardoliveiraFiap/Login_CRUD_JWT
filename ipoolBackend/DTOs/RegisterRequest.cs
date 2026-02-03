@@ -18,4 +18,6 @@ public class RegisterRequest
 	[MinLength(6)]
 	[MaxLength(100)]
 	public string Password { get; set; } = string.Empty;
+
+	public bool IsActive { get; set; } = true;
 }

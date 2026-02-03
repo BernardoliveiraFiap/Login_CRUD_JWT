@@ -1,4 +1,5 @@
 using Microsoft.OpenApi;
+using Microsoft.Extensions.FileProviders;
 using Scalar.AspNetCore;
 using ipoolBackend.Data;
 using ipoolBackend.Extensions;
@@ -47,6 +48,14 @@ if (app.Environment.IsDevelopment())
     });
 
     await app.EnsureDatabaseAsync();
+}
+
+var frontendPath = Path.GetFullPath(Path.Combine(app.Environment.ContentRootPath, "..", "frontend"));
+if (Directory.Exists(frontendPath))
+{
+    var frontendProvider = new PhysicalFileProvider(frontendPath);
+    app.UseDefaultFiles(new DefaultFilesOptions { FileProvider = frontendProvider });
+    app.UseStaticFiles(new StaticFileOptions { FileProvider = frontendProvider });
 }
 
 // app.UseHttpsRedirection(); // Comentado para desenvolvimento

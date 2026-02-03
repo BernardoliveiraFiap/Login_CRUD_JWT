@@ -1,0 +1,100 @@
+:root {
+  --ipool-bg: #f7f7f7;
+  --ipool-card: #ffffff;
+  --ipool-text: #111111;
+  --ipool-muted: #6b7280;
+  --ipool-primary: #000000;
+  --ipool-accent: #d4af37;
+}
+
+body {
+  background: var(--ipool-bg);
+  color: var(--ipool-text);
+}
+
+.app-shell {
+  max-width: 980px;
+  margin: 0 auto;
+}
+
+.brand-logo {
+  max-width: 180px;
+  height: auto;
+}
+
+.brand-subtitle {
+  color: var(--ipool-muted);
+}
+
+.brand-title {
+  letter-spacing: 0.5px;
+}
+
+.card {
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  border-radius: 14px;
+  background: var(--ipool-card);
+}
+
+.btn-primary,
+.btn-success {
+  background-color: var(--ipool-primary);
+  border-color: var(--ipool-primary);
+}
+
+.btn-primary:hover,
+.btn-success:hover {
+  background-color: #1a1a1a;
+  border-color: #1a1a1a;
+}
+
+.btn-primary:focus,
+.btn-success:focus {
+  box-shadow: 0 0 0 0.2rem rgba(0, 0, 0, 0.2);
+}
+
+.nav-tabs .nav-link {
+  color: var(--ipool-muted);
+}
+
+.nav-tabs .nav-link.active {
+  color: var(--ipool-text);
+  font-weight: 600;
+}
+
+.btn-dark {
+  background-color: var(--ipool-primary);
+  border-color: var(--ipool-primary);
+}
+
+.btn-dark:hover {
+  background-color: #1a1a1a;
+  border-color: #1a1a1a;
+}
+
+.table thead th {
+  font-size: 0.85rem;
+  color: var(--ipool-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.form-label {
+  font-weight: 500;
+}
+
+.small-muted {
+  color: var(--ipool-muted);
+}
+
+.footer {
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  margin-top: 48px;
+  padding-top: 20px;
+  color: var(--ipool-muted);
+}
+
+.footer .accent {
+  color: var(--ipool-accent);
+  font-weight: 600;
+}
