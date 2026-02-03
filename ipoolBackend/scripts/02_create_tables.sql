@@ -1,0 +1,16 @@
+USE iPoolDb;
+GO
+
+IF OBJECT_ID('dbo.Users', 'U') IS NULL
+BEGIN
+    CREATE TABLE dbo.Users (
+        Id UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
+        Name NVARCHAR(120) NOT NULL,
+        Email NVARCHAR(150) NOT NULL,
+        NormalizedEmail NVARCHAR(150) NOT NULL,
+        PasswordHash NVARCHAR(500) NOT NULL,
+        IsActive BIT NOT NULL CONSTRAINT DF_Users_IsActive DEFAULT(1),
+        CreatedAt DATETIME2 NOT NULL CONSTRAINT DF_Users_CreatedAt DEFAULT(SYSUTCDATETIME())
+    );
+END
+GO

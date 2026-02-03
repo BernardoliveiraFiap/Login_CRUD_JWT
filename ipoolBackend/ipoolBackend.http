@@ -1,6 +1,45 @@
-@ipoolBackend_HostAddress = http://localhost:5127
+@ipoolBackend_HostAddress = http://localhost:5000
+@token = REPLACE_WITH_TOKEN
 
-GET {{ipoolBackend_HostAddress}}/weatherforecast/
-Accept: application/json
+### Scalar UI: http://localhost:5000/scalar/v1
 
-###
+### Root (redirects to Scalar)
+GET {{ipoolBackend_HostAddress}}/
+
+### Health
+GET {{ipoolBackend_HostAddress}}/api/health
+
+### Health DB
+GET {{ipoolBackend_HostAddress}}/api/health/db
+
+### Info
+GET {{ipoolBackend_HostAddress}}/api/info
+
+### Register
+POST {{ipoolBackend_HostAddress}}/api/auth/register
+Content-Type: application/json
+
+{
+	"name": "Usuario Teste",
+	"email": "teste@ipool.com",
+	"password": "123456",
+	"isActive": true
+}
+
+### Login
+POST {{ipoolBackend_HostAddress}}/api/auth/login
+Content-Type: application/json
+
+{
+	"email": "teste@ipool.com",
+	"password": "123456"
+}
+
+### List users
+GET {{ipoolBackend_HostAddress}}/api/users
+Authorization: Bearer {{token}}
+
+### Delete user
+DELETE {{ipoolBackend_HostAddress}}/api/users/{{userId}}
+Authorization: Bearer {{token}}
+
